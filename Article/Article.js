@@ -112,3 +112,80 @@ const data = [
   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
 
 */
+
+
+const articles = document.querySelector('.articles')
+
+function makePanel (object) {
+ 
+  //Instantiate all elements needed
+  const article = document.createElement('div')
+  const articleTitle = document.createElement('h2')
+  const articleDate = document.createElement('p')
+  const articleContent1 = document.createElement('p')
+  const articleContent2 = document.createElement('p')
+  const articleContent3 = document.createElement('p')
+  const articleButtonOpen = document.createElement('span')
+  const articleButtonClosed = document.createElement('span')
+  const articleExit = document.createElement('button')
+
+  article.appendChild(articleTitle)
+  article.appendChild(articleDate)
+  article.appendChild(articleContent1)
+  article.appendChild(articleContent2)
+  article.appendChild(articleContent3)
+  article.appendChild(articleButtonOpen)
+  article.appendChild(articleButtonClosed)
+  article.appendChild(articleExit)
+
+  article.classList.add('article')
+  articleDate.classList.add('date')
+  articleButtonOpen.classList.add('expandButton')
+  articleButtonClosed.classList.add('expandButton', 'hide-btn')
+  articleExit.classList.add('close')
+
+  articleTitle.textContent = object.title
+  articleDate.textContent = object.date
+  articleContent1.textContent = object.firstParagraph
+  articleContent2.textContent = object.secondParagraph
+  articleContent3.textContent = object.thirdParagraph
+  articleExit.textContent = 'Mark as Read'
+
+  const open = '\u25bc'
+  articleButtonOpen.textContent = open
+
+  const close = '\u25b2'
+  articleButtonClosed.textContent = close
+
+
+  articleButtonOpen.addEventListener('click', () => {
+    article.classList.toggle('article-open')
+    articleButtonOpen.classList.toggle('hide-btn')
+    articleButtonClosed.classLies.toggle('hide-btn')
+  })
+
+  articleButtonClosed.addEventListener('click', () => {
+    article.classList.toggle('article-open')
+    articleButtonOpen.classList.toggle('hide-btn')
+    articleButtonClosed.classLies.toggle('hide-btn')
+  })
+
+  articleExit.addEventListener('click', () => {
+    article.style.display = 'none';
+  })
+  
+
+  return article
+}
+
+
+
+const articleElements = data.map(data => {
+  return makePanel(data)
+})
+
+articleElements.forEach(data => {
+  articles.appendChild(data)
+})
+
+
